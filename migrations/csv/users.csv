@@ -1,0 +1,4 @@
+id,name,email,phone,role,credits,avatar,bio,created_at,store_raw_ips
+mock-user,"Demo User",demo@example.com,+1234567890,premium,490300,,,"2026-06-30 15:33:40",0
+demo-owner-1,"Demo Marketer A",owner1@example.com,"",user,250,,,"2026-06-30 15:33:40",0
+demo-owner-2,"Demo Marketer B",owner2@example.com,"",user,250,,,"2026-06-30 15:33:40",0

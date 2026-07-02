@@ -1,0 +1,16 @@
+id,owner_id,title,url,category,status,credits_allocated,credits_used,daily_limit,target_countries,target_devices,visits_received,mode,search_engine,search_keywords,search_platform,search_target_name,search_page,search_sort,created_at
+search-wikipedia,demo-owner-1,"Wikipedia Search",https://wikipedia.org,education,active,300,0,120,"US,CA,GB","desktop,mobile",0,search,Google,"Wikipedia free encyclopedia",,,,,"2026-06-30 15:33:40"
+search-github,demo-owner-2,"GitHub Search",https://github.com,tech,active,300,5,120,"US,GB,DE","desktop,mobile",18,search,Google,"GitHub open source",,,,,"2026-06-30 15:33:40"
+search-techcrunch,demo-owner-1,"TechCrunch Search",https://techcrunch.com,news,active,250,40,100,"US,GB,CA","desktop,mobile",40,search,DuckDuckGo,"TechCrunch startup news",,,,,"2026-06-30 15:33:40"
+search-stackoverflow,demo-owner-2,"Stack Overflow Search",https://stackoverflow.com,development,active,250,30,100,"US,IN,UK","desktop,mobile",30,search,Google,"Stack Overflow programming help",,,,,"2026-06-30 15:33:40"
+search-hackernews,demo-owner-1,"Hacker News Search",https://news.ycombinator.com,startup,active,250,20,90,"US,CA,GB","desktop,mobile",24,search,Google,"Hacker News Y Combinator",,,,,"2026-06-30 15:33:40"
+search-bbc,demo-owner-2,"BBC Search",https://bbc.com,news,active,200,10,80,"GB,US,AU","desktop,mobile",14,search,DuckDuckGo,"BBC News world",,,,,"2026-06-30 15:33:40"
+search-cnn,demo-owner-1,"CNN Search",https://cnn.com,news,active,200,15,80,"US,CA,GB","desktop,mobile",16,search,Google,"CNN breaking news",,,,,"2026-06-30 15:33:40"
+search-nytimes,demo-owner-2,"New York Times Search",https://nytimes.com,news,active,200,14,80,"US,CA,GB","desktop,mobile",18,search,DuckDuckGo,"NYTimes news",,,,,"2026-06-30 15:33:40"
+search-amazon,demo-owner-1,"Amazon Search",https://amazon.com,shopping,active,300,22,110,"US,CA,GB","desktop,mobile",26,search,Google,"Amazon online shopping",,,,,"2026-06-30 15:33:40"
+search-spotify,demo-owner-2,"Spotify Search",https://spotify.com,music,active,200,12,90,"US,GB,SE","desktop,mobile",14,search,DuckDuckGo,"Spotify music streaming",,,,,"2026-06-30 15:33:40"
+search-youtube,demo-owner-1,"YouTube Search",https://youtube.com,video,active,300,0,120,"US,CA,GB","desktop,mobile",0,search,Google,"YouTube videos",,,,,"2026-06-30 15:33:40"
+search-mdn,demo-owner-2,"MDN Search",https://developer.mozilla.org,development,active,250,0,100,"US,GB,DE","desktop,mobile",0,search,Google,"MDN Web Docs",,,,,"2026-06-30 15:33:40"
+1782840690484,mock-user,instagram,https://www.instagram.com/p/DDt1AnWKEun/,"",paused,1000000,0,100,US,"desktop,mobile",0,search,Google,staysafelite,,,,,2026-06-30T17:31:30.484Z
+1782907321453,mock-user,ookk,https://www.onspace.ai/ai-app-builder,"",paused,1000000,0,100,US,"desktop,mobile",0,search,Google,"onspace ai",,,,,2026-07-01T12:02:01.453Z
+1782909711996,mock-user,87654,https://fiverr.com/,"",active,1000000,0,10,US,"desktop,mobile",0,freelancing,Google,substack,Fiverr,kenny,1,Relevance,2026-07-01T12:41:51.996Z

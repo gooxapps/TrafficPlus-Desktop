@@ -1,0 +1,55 @@
+name: Build and Publish Windows Release
+
+# Triggers when you push a version tag like: git tag v1.0.0 && git push --tags
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build-and-release-windows:
+    name: Build Windows .exe and publish to GitHub Releases
+    # IMPORTANT: Must run on windows-latest — Electron cannot be cross-compiled
+    # for Windows from Linux/macOS without Wine (which is not installed by default).
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Rebuild native modules for Electron (better-sqlite3 etc.)
+        run: npx electron-rebuild --force
+        env:
+          npm_config_msvs_version: '2022'
+
+      - name: Install Playwright Chromium browser
+        run: npx playwright install chromium
+
+      - name: Build renderer (Vite)
+        run: npm run build
+
+      - name: Build Windows NSIS installer and publish to GitHub Releases
+        # GH_TOKEN must be added as a repository secret.
+        # Go to: GitHub repo → Settings → Secrets → Actions → New secret
+        # Name: GH_TOKEN, Value: your GitHub Personal Access Token (with repo scope)
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: npx electron-builder --win --x64 --publish always
+
+      - name: Upload artifacts to workflow run (backup)
+        uses: actions/upload-artifact@v4
+        with:
+          name: TrafficPlus-Windows-${{ github.ref_name }}
+          path: |
+            release/*.exe
+            release/latest.yml
+          if-no-files-found: warn

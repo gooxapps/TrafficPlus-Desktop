@@ -1,0 +1,6 @@
+id,user_id,type,amount,description,campaign_id,created_at
+act_1782900946776_evbh,mock-user,purchase,360000,"Annual subscription — 360,000 credits included",,2026-07-01T10:15:46.776Z
+act_1782906959957_us6t,mock-user,bonus,50,"Daily login bonus",,2026-07-01T11:55:59.957Z
+act_1782906961968_h5ca,mock-user,purchase,25000,"Purchased 25K credit pack ($19.99)",,2026-07-01T11:56:01.968Z
+act_1782906962907_8uj7,mock-user,purchase,100000,"Purchased 100K credit pack ($59.99)",,2026-07-01T11:56:02.907Z
+act_1782906964174_c5jp,mock-user,purchase,5000,"Purchased 5K credit pack ($4.99)",,2026-07-01T11:56:04.174Z

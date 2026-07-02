@@ -1,0 +1,58 @@
+name: Windows Electron Build
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+  workflow_dispatch: {}
+
+jobs:
+  build-windows:
+    name: Build Windows Electron App
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Rebuild native modules for Electron (better-sqlite3 etc.)
+        run: npx electron-rebuild --force
+        env:
+          npm_config_msvs_version: '2022'
+
+      - name: Install Playwright Chromium browser
+        run: npx playwright install chromium
+
+      - name: Build renderer (Vite)
+        run: npm run build
+
+      - name: Build Windows NSIS installer
+        # GH_TOKEN allows electron-builder to detect the publish config
+        # but we don't publish on branch pushes — only on release tags
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: npx electron-builder --win --x64 --publish never
+
+      - name: Upload Windows release artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: electron-windows-release
+          # Uploads the installer (.exe) and the unpacked app
+          path: |
+            release/*.exe
+            release/latest.yml
+          if-no-files-found: warn
