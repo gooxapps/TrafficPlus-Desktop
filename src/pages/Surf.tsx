@@ -500,29 +500,30 @@ export default function Surf() {
                     <Pause className="w-4 h-4" /> Pause all
                   </Button>
                 )}
-                {eng.isRunning && (
-            <Button variant="ghost" onClick={eng.stop} className="text-red-500 hover:text-red-500">
-              <Square className="w-4 h-4" /> Stop
-            </Button>
-          )}
-          {eng.isRunning && isElectron() && (
-            <Button
-              variant="outline"
-              onClick={eng.toggleShowPopups}
-              title={eng.showPopups ? "Switch to background mode (hidden)" : "Switch to visible browser mode"}
-              className="whitespace-nowrap"
-            >
-              {eng.showPopups ? (
-                <>
-                  <Eye className="w-4 h-4" /> Visible Browser Mode
-                </>
-              ) : (
-                <>
-                  <EyeOff className="w-4 h-4" /> Background Mode (Hidden)
-                </>
-              )}
-            </Button>
-          )}
+                {eng.isRunning ? (
+                  <Button variant="ghost" onClick={eng.stop} className="text-red-500 hover:text-red-500">
+                    <Square className="w-4 h-4 mr-1" /> Stop
+                  </Button>
+                ) : null}
+                
+                {isElectron() && (
+                  <Button
+                    variant="outline"
+                    onClick={eng.toggleShowPopups}
+                    title={eng.showPopups ? "Switch to background mode (hidden)" : "Switch to visible browser mode"}
+                    className="whitespace-nowrap"
+                  >
+                    {eng.showPopups ? (
+                      <>
+                        <Eye className="w-4 h-4 mr-1" /> Visible Browser Mode
+                      </>
+                    ) : (
+                      <>
+                        <EyeOff className="w-4 h-4 mr-1" /> Background Mode (Hidden)
+                      </>
+                    )}
+                  </Button>
+                )}
               </div>
             </div>
             {eng.isRunning && eng.hidden && (

@@ -2307,8 +2307,21 @@ ipcMain.handle('browser:open', async (event, { url, slotId, deviceType = 'Deskto
       }
     }
 
-    // Launch a new Chromium browser
-    const browser = await chromium.launch(launchOptions);
+    // Launch a new Chromium browser, fallback to system edge/chrome if bundled chromium is missing (common in electron-builder)
+    let browser;
+    try {
+      browser = await chromium.launch(launchOptions);
+    } catch (e) {
+      console.log('[browser:open] Default chromium launch failed, trying msedge...', e.message);
+      try {
+        launchOptions.channel = 'msedge';
+        browser = await chromium.launch(launchOptions);
+      } catch (e2) {
+        console.log('[browser:open] msedge launch failed, trying chrome...', e2.message);
+        launchOptions.channel = 'chrome';
+        browser = await chromium.launch(launchOptions);
+      }
+    }
 
     const contextOptions = {
       viewport: device.viewport,
