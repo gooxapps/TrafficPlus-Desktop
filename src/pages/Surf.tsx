@@ -432,6 +432,22 @@ export default function Surf() {
               </div>
 
               <div className="flex items-center gap-2">
+                <Smartphone className="w-4 h-4 text-primary" />
+                <span className="text-sm font-semibold">Device / User-Agent</span>
+                <select
+                  value={eng.globalDevice}
+                  onChange={(e) => eng.setGlobalDevice(e.target.value)}
+                  disabled={eng.isRunning}
+                  className="h-9 bg-card border border-border rounded-lg px-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                >
+                  <option value="Random">Random</option>
+                  {eng.availableDevices.map((device) => (
+                    <option key={device} value={device}>{device}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="flex items-center gap-2">
                 <Server className="w-4 h-4 text-primary" />
                 <span className="text-sm font-semibold">Proxy</span>
                 <select
@@ -490,14 +506,19 @@ export default function Surf() {
             </Button>
           )}
           {eng.isRunning && isElectron() && (
-            <Button variant="outline" onClick={eng.toggleShowPopups} title={eng.showPopups ? "Hide popups" : "Show popups"}>
+            <Button
+              variant="outline"
+              onClick={eng.toggleShowPopups}
+              title={eng.showPopups ? "Switch to background mode (hidden)" : "Switch to visible browser mode"}
+              className="whitespace-nowrap"
+            >
               {eng.showPopups ? (
                 <>
-                  <Eye className="w-4 h-4" /> Hide
+                  <Eye className="w-4 h-4" /> Visible Browser Mode
                 </>
               ) : (
                 <>
-                  <EyeOff className="w-4 h-4" /> Show
+                  <EyeOff className="w-4 h-4" /> Background Mode (Hidden)
                 </>
               )}
             </Button>
@@ -662,7 +683,7 @@ export default function Surf() {
             <CardContent className="space-y-3">
               {showAddProxy && (
                 <Tabs value={proxyTab} onValueChange={setProxyTab} className="w-full">
-                  <TabsList className="grid grid-cols-4 mb-4">
+                  <TabsList className="flex flex-wrap h-auto gap-2 mb-4">
                     <TabsTrigger value="add">Add Single</TabsTrigger>
                     <TabsTrigger value="file">Import File</TabsTrigger>
                     <TabsTrigger value="text">Import Text</TabsTrigger>

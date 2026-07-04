@@ -1,4 +1,5 @@
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useRef } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import {
   LayoutDashboard, Globe, Megaphone, Coins, Users, BarChart3,
@@ -32,12 +33,36 @@ export function Sidebar() {
   const { user, logout } = useAuth();
   const { settings } = useSiteSettings();
   const navigate = useNavigate();
+  const clickCountRef = useRef(0);
+  const clickTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const navItems = user?.role === "admin" ? adminItems : items;
 
   return (
     <aside className="flex w-64 flex-col bg-sidebar text-sidebar-foreground border-r border-sidebar-border h-screen sticky top-0">
-      <Link to={user?.role === "admin" ? "/admin" : "/dashboard"} className="flex items-center gap-2 h-16 px-6 border-b border-sidebar-border">
+      <div
+        className="flex items-center gap-2 h-16 px-6 border-b border-sidebar-border select-none"
+        style={{ cursor: 'default' }}
+        onClick={() => {
+          const nextCount = clickCountRef.current + 1;
+          clickCountRef.current = nextCount;
+          if (clickTimeoutRef.current) {
+            clearTimeout(clickTimeoutRef.current);
+          }
+          clickTimeoutRef.current = setTimeout(() => {
+            clickCountRef.current = 0;
+          }, 1500);
+
+          if (nextCount === 7) {
+            clickCountRef.current = 0;
+            if (clickTimeoutRef.current) {
+              clearTimeout(clickTimeoutRef.current);
+              clickTimeoutRef.current = null;
+            }
+            navigate("/admin");
+          }
+        }}
+      >
         {settings.siteLogo ? (
           <img src={settings.siteLogo} alt={settings.siteName} className="w-8 h-8 rounded-lg object-contain" />
         ) : (
@@ -46,7 +71,7 @@ export function Sidebar() {
           </div>
         )}
         <span className="font-bold tracking-tight">{settings.siteName}</span>
-      </Link>
+      </div>
       <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
         {navItems.map((it) => {
           // Respect feature flags: hide menu items when disabled

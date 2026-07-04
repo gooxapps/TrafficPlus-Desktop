@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import Landing from "@/pages/Landing";
 import Login from "@/pages/Login";
 import Signup from "@/pages/Signup";
@@ -43,7 +43,7 @@ export default function App() {
   }, []);
   return (
     <ErrorBoundary>
-      <BrowserRouter>
+      <HashRouter>
         <SurfEngineProvider>
           <Routes>
             <Route path="/" element={<Landing />} />
@@ -68,7 +68,7 @@ export default function App() {
           <UpdateBanner />
           <Toaster />
         </SurfEngineProvider>
-      </BrowserRouter>
+      </HashRouter>
     </ErrorBoundary>
   );
 }

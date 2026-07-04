@@ -69,6 +69,8 @@ interface SurfEngineCtx {
   hidden: boolean;
   maxSlots: number;
   availableDevices: string[];
+  globalDevice: string;
+  setGlobalDevice: (device: string) => void;
   setSlotDevice: (slotId: number, deviceType: string) => void;
   setSlotUserAgent: (slotId: number, userAgent: string) => void;
   setSlotHeadless: (slotId: number, headless: boolean) => void;
@@ -106,6 +108,7 @@ export function SurfEngineProvider({ children }: { children: React.ReactNode }) 
   const [slots, setSlots] = useState<SurfSlot[]>([]);
   const [showPopups, setShowPopups] = useState(true);
   const [availableDevices, setAvailableDevices] = useState<string[]>(DEFAULT_DEVICES);
+  const [globalDevice, setGlobalDevice] = useState<string>('Random');
   const [networkThrottle, setNetworkThrottle] = useState<string>('none');
   const [proxyMode, setProxyMode] = useState<'none' | 'single' | 'rotate' | 'per-slot'>('none');
   const [selectedProxyId, setSelectedProxyId] = useState<string | null>(null);
@@ -436,7 +439,7 @@ export function SurfEngineProvider({ children }: { children: React.ReactNode }) 
         isPaused: false,
         popupOpen: false,
         popupBlocked: false,
-        deviceType: existingSlot?.deviceType || getRandomDevice(),
+        deviceType: existingSlot?.deviceType || (globalDevice !== 'Random' ? globalDevice : getRandomDevice()),
         headless: existingSlot?.headless || false,
         userAgent: existingSlot?.userAgent,
         proxy: existingSlot?.proxy || null,
@@ -690,6 +693,7 @@ export function SurfEngineProvider({ children }: { children: React.ReactNode }) 
 
   const value = useMemo<SurfEngineCtx>(() => ({
     slotCount, setSlotCount, duration, setDuration, isRunning, isVerified, autoRotate, setAutoRotate,
+    globalDevice, setGlobalDevice,
     showPopups, toggleShowPopups,
     pool, slots, sessionCredits, sessionVisits, hidden, maxSlots: MAX_SLOTS,
     availableDevices, setSlotDevice, setSlotUserAgent, setSlotHeadless, setSlotProxy,
@@ -700,6 +704,7 @@ export function SurfEngineProvider({ children }: { children: React.ReactNode }) 
     start, pauseAll, resumeAll, stop, pauseSlot, resumeSlot, nextSlot, reopenSlot,
   }), [
     slotCount, setSlotCount, duration, setDuration, isRunning, isVerified, autoRotate,
+    globalDevice,
     showPopups, toggleShowPopups,
     pool, slots, sessionCredits, sessionVisits, hidden,
     availableDevices, setSlotDevice, setSlotUserAgent, setSlotHeadless, setSlotProxy,
